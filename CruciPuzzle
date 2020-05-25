@@ -1,0 +1,415 @@
+using System;
+
+namespace farneti.michele.crucipuzzle
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Crucipuzzle di Michele Farneti");
+
+            //Algoritmo di risoluzione di un crucipuzzle tramite l'ausilio di 8 diverse procedure di ricerca
+            //Questa versione non include la colorazione delle parole trovate
+
+            string[] parole = new string [] {"OGGI","CERTAMENTE","NEANCHE","FORSE","MAI","TROPPO","DAVANTI","STAMANE","BENE"} ;           
+            
+            char[,] puzzle =
+            {
+                {'S','S','I','F','C','Q','Y','K','Q','Y' },
+                {'E','T','N','O','E','M','A','I','M','F' },
+                {'P','O','A','S','R','A','T','W','G','X' },
+                {'J','A','R','M','T','N','T','N','K','B' },
+                {'C','O','D','E','A','B','E','D','J','P' },
+                {'F','Q','X','V','M','N','O','J','B','I' },
+                {'N','H','A','G','E','H','E','U','G','H' },
+                {'T','D','B','B','N','W','Q','G','E','H' },
+                {'N','K','V','D','T','R','O','P','P','O' },
+                {'F','R','Y','N','E','A','N','C','H','E' },
+            };
+
+    //Stampa puzzle
+            for(int i=0;i<10;i++)
+                {
+                    for(int j=0;j<10;j++)
+                     {
+                         Console.Write("  "+ puzzle[i,j]);
+                     }
+                    Console.WriteLine("\n");
+                }
+
+
+    //Ricerca parole
+    int nparola=0;
+    int trovata=0;
+
+    for(nparola=0;nparola<parole.Length;nparola++)
+    {
+    char[] ricercata=parole[nparola].ToCharArray();
+        for(int i=0;i<10;i++)
+                {
+                    for(int j=0;j<10;j++)
+                     {
+                        if(ricercata[0]==puzzle[i,j])
+                        {
+                            
+                            trovata=RicercaAvanti(puzzle,ricercata,i,j);
+                            if(trovata==1)
+                            {
+                                Console.WriteLine("La parola {0} è stata trovata scritta in avanti",parole[nparola]);
+                            }
+                            
+                            
+                            trovata=RicercaIndietro(puzzle,ricercata,i,j);
+                            if(trovata==1)
+                            {
+                                Console.WriteLine("La parola {0} è stata trovata scritta all'indietro",parole[nparola]);
+                            }
+                            
+                            
+                            trovata=RicercaSu(puzzle,ricercata,i,j);
+                            if(trovata==1)
+                            {
+                                Console.WriteLine("La parola {0} è stata trovata scritta verso l'alto",parole[nparola]);
+                            }
+                            
+                            
+                            trovata=RicercaGiu(puzzle,ricercata,i,j);
+                            if(trovata==1)
+                            {
+                                Console.WriteLine("La parola {0} è stata trovata scritta verso il basso",parole[nparola]);
+                            }
+                            
+                            
+                            trovata=RicercaDiaAS(puzzle,ricercata,i,j);
+                            if(trovata==1)
+                            {
+                                Console.WriteLine("La parola {0} è stata trovata scritta in diagonale avanti e verso l'alto ",parole[nparola]);
+                            }
+                            
+                            
+                            trovata=RicercaDiaAG(puzzle,ricercata,i,j);
+                            if(trovata==1)
+                            {
+                                Console.WriteLine("La parola {0} è stata trovata scritta in diagonale avanti e verso il basso ",parole[nparola]);
+                            }
+                            
+                            trovata=RicercaDiaIS(puzzle,ricercata,i,j);
+                            if(trovata==1)
+                            {
+                                Console.WriteLine("La parola {0} è stata trovata scritta in diagonale indietro e verso l'alto ",parole[nparola]);
+                            }
+                            
+                           
+                            trovata=RicercaDiaIG(puzzle,ricercata,i,j);
+                            if(trovata==1)
+                            {
+                                Console.WriteLine("La parola {0} è stata trovata scritta in diagonale indietro e verso il bassso ",parole[nparola]);
+                            }
+                            
+                        } 
+                     }
+                }
+    }        
+ 
+
+       }
+        //RICERCA IN AVANTI
+       static int RicercaAvanti(char[,] A ,char[] B,int riga,int colonna)
+       {
+            if((colonna+B.Length)<=10)
+            {
+            int M=1;
+            int trovata=0;
+            for(int j=colonna+1;(j<(colonna+B.Length))&&j<10 ;j++)
+            {
+                if(A[riga,j]!=B[M])
+                {
+                    trovata=1;
+                    }
+                
+                M++;
+            }
+
+            if(trovata==0)
+            {
+                    return 1;
+            }
+            else
+            {
+                
+                return 0;
+            }
+            }
+            else
+            {
+                return 0;
+            }
+            
+       }
+       //RICERCA INDIETRO
+       static int RicercaIndietro(char[,] A ,char[] B,int riga,int colonna)
+       {
+        if((colonna-B.Length)>=-1)
+        {
+            int M=1;
+            int trovata=0;
+            
+            for(int j=colonna-1;(j>(colonna-B.Length))&&j>=0;j--)
+            {    
+                    
+
+                if(A[riga,j]!=B[M])
+                {
+                    
+                    trovata=1;
+        
+                }
+                M++;
+                
+            }
+            
+            if(trovata==0)
+            {
+                    return 1;
+            }
+            else
+            {
+                
+                return 0;
+            }
+        }
+        else
+        {
+            return 0;
+        }
+        
+       }
+       //RICERCA SU
+       static int RicercaSu(char[,] A ,char[] B,int riga,int colonna)
+       {
+         
+           if ((riga-B.Length)>=-1)
+           {
+               
+                int M=1;
+                int trovata=0;
+                
+                for(int i=riga-1;(i>(riga-B.Length))&&i>=0;i--)
+                {    
+                        
+                    if(A[i,colonna]!=B[M])
+                    {
+                        trovata=1;
+                        
+                    }
+                    M++;
+                }
+                if(trovata==0)
+                {
+                        return 1;
+                }
+                else
+                {
+                    
+                    return 0;
+                        
+                }
+            }
+           else
+           {
+               return 0;
+           }
+       
+       }
+       //RICERCA GIU
+       static int RicercaGiu(char[,] A ,char[] B,int riga,int colonna)
+       {
+         
+           if ((riga+B.Length)<=10)
+           {
+               
+                int M=1;
+                int trovata=0;
+                
+                for(int i=riga+1;(i<(riga+B.Length))&&i<=10;i++)
+                {    
+                    
+                    if(A[i,colonna]!=B[M])
+                    {
+                        trovata=1;
+                        
+                    }
+                    M++;
+                }
+                if(trovata==0)
+                {
+                        return 1;
+                }
+                else
+                {
+                    
+                    return 0;
+                    
+                 }
+           }
+           else
+           {
+               return 0;
+           }
+       }
+       //RICERCA DIAGONALE AVANTI  SU 
+       static int RicercaDiaAS(char[,] A ,char[] B,int riga,int colonna)
+       {
+            if (((riga-B.Length)>=-1) && ((colonna+B.Length)<=10) )
+            {
+                int trovata=0;
+                int M=1;
+                int i=riga-1;
+                for(int j=colonna+1 ;(j<(colonna+B.Length))&&j<10 ;j++)
+                {
+            
+                    if(A[i,j]!=B[M])
+                    {
+                        trovata=1;              
+                    }
+
+                    i--;
+                    M++;
+                }
+
+                if(trovata==0)
+                {
+                        return 1;
+                }
+                else
+                {
+                    
+                    return 0;
+                    
+                 }
+
+            }
+            else
+            {
+                return 0;
+            }
+           
+       }
+       //RICERCA DIAGONALE AVANTI  GIU
+       static int RicercaDiaAG(char[,] A ,char[] B,int riga,int colonna)
+       {
+            if (((riga+B.Length)<=10) && ((colonna+B.Length)<=10) )
+            {
+                int trovata=0;
+                int M=1;
+                int i=riga+1;
+
+                for(int j=colonna+1 ;(j<(colonna+B.Length))&&j<10 ;j++)
+                {
+                    if(A[i,j]!=B[M])
+                    {
+                        trovata=1;              
+                    }
+
+                    i++;
+                    M++;
+                }
+
+                if(trovata==0)
+                {
+                        return 1;
+                }
+                else
+                {
+                    
+                    return 0;
+                    
+                 }
+
+
+            }
+            else
+            {
+                return 0;
+            }
+       }
+       //RICERCA DIAGONALE INDIETRO SU
+       static int RicercaDiaIS(char[,] A ,char[] B,int riga,int colonna)
+       {
+           
+
+           if (((riga+B.Length)<=10) && ((colonna-B.Length)>=-1) )
+            {
+                int trovata=0;
+                int M=1;
+                int i=riga+1;
+
+                for(int j=colonna-1;(j>(colonna-B.Length))&&j>=0;j--)
+                {
+                   
+                    if(A[i,j]!=B[M])
+                    {
+                        trovata=1;              
+                    }
+
+                    i++;
+                    M++;
+                }
+
+                if(trovata==0)
+                {
+                        return 1;
+                }
+                else
+                {
+                    
+                    return 0;
+                    
+                 }
+
+            }
+            else
+            {
+                return 0;
+            }
+       }
+       //RICERCA DIAGONALE INDIETRO GIU
+       static int RicercaDiaIG(char[,] A ,char[] B,int riga,int colonna)
+       {
+           if (((riga-B.Length)>=-1) && ((colonna-B.Length)>=-1) )
+            {
+                int trovata=0;
+                int M=1;
+                int i=riga-1;
+
+                for(int j=colonna-1;(j>(colonna-B.Length))&&j>=0;j--)
+                {
+                   
+                    if(A[i,j]!=B[M])
+                    {
+                        trovata=1;              
+                    }
+
+                    i--;
+                    M++;
+                }
+
+                if(trovata==0)
+                {
+                        return 1;
+                }
+                else
+                {
+                    
+                    return 0;
+                    
+                 }
+
+            }
+            else
+            {
+                return 0;
+            }
+       }
+    }
+}
