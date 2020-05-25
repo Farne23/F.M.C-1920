@@ -1,0 +1,62 @@
+using System;
+
+namespace INFO
+{
+    class Program
+    {
+        
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Ordinamento Array di stringhe_Michele Farneti 3H 28/04/20");
+            
+            //Dichiarazione array di stringhe
+            string[] Cognomi = new string[] {"Conti","Greco", "Marino", "Russo", "Colombo", "Galli", "Conte","Asso" };
+
+            //Output vettore disordinato
+            Console.WriteLine("Cognomi presenti nell'Array disordinati:");
+            for(var i=0; i< Cognomi.Length; i++)
+            {
+                Console.WriteLine(Cognomi[i]);
+            }
+
+            //Richiamo alla funzione per l'ordinamento del vettore
+            Cognomi = Ordinamento(Cognomi);
+
+            //Output vettore ordinato
+            Console.WriteLine("Cognomi presenti nell'Array ordinati con bubblesort:");
+            for(var i=0; i< Cognomi.Length; i++)
+            {
+                Console.WriteLine(Cognomi[i]);
+            }
+            
+
+        }
+
+        //Funzione per l'ordinamento del vettore
+        static string[] Ordinamento(string[] A)
+        {
+            //Variabile per gli scambi
+            string X;
+
+            // Bubble sort 
+            for(int j=0; j < (A.Length - 1); j++)
+                {
+                    for(int i=0; i < (A.Length - 1); i++)
+                        {
+                            //Coomparazione tra stringhe
+                            if(String.Compare(A[i],A[i+1])==1)
+                                {
+                                    X = A[i];
+                                    A[i] = A[i+1];
+                                    A[i+1] = X;
+                                }
+                        }    
+                }
+
+            return A;
+        }
+        
+
+
+    }
+}
