@@ -1,0 +1,89 @@
+using System;
+
+namespace frase
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Gestione di una frase Michele Farneti");
+
+            string frase="ciao a     tutti";
+            Console.WriteLine(frase);
+
+
+            for(int i=frase.Length;i>0;i--)
+            {
+                Console.Write(frase[i-1]);
+            }
+
+            Console.WriteLine();
+            string contrario="";
+            
+            
+            for (int i = frase.Length-1; i >=0; i--)   
+            {  
+                contrario += frase[i].ToString();  
+            }  
+
+            if (contrario == frase)   
+            {  
+                Console.WriteLine("La frase e palindroma");  
+            }  
+            else  
+                {  
+                   Console.WriteLine("La frase non e palindroma");  
+                } 
+
+
+        int Nparole=1;
+        char[] parole=frase.ToCharArray();
+           for(int i=0;i<frase.Length;i++)
+           {
+              if(parole[i]==' ') 
+              {
+                  Nparole++;
+
+                  while(parole[i]==' ')
+                     {
+                        i++;
+                    }
+              }
+           }
+
+           Console.WriteLine("Il numero di parole e {0}",Nparole);
+
+            char[] alfabeto = "abcdefghijklmnopqrstuvwxyz".ToCharArray();
+            int[] frequenza= new int [26];
+
+            for(int i =0; i<frequenza.Length; i++)
+            {
+                frequenza[i]=0;
+            }
+
+             
+
+
+            for(int i =0; i<parole.Length; i++)
+            {
+                for(int j =0; j<26; j++)
+                {
+                       if(parole[i]==alfabeto[j])
+                    {
+                        frequenza[j]++;
+                    }
+                }
+            }
+
+            
+            for(int i =0; i<26; i++)
+                {
+                    Console.WriteLine("La lettera {0} appare {1} volte",alfabeto[i],frequenza[i]);
+                  
+                }
+
+           
+
+        }
+    }
+}
