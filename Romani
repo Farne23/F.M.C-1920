@@ -1,0 +1,255 @@
+using System;
+
+namespace farneti.michele._3h.romani
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+            Console.WriteLine("Programma per convertire i numeri in numeri romani-Michelele Farneti");
+
+            string strN;
+            int N = 0;
+            int decine = 0;
+            int unità;
+            int centinaia=0;
+            int migliaia = 0;
+
+            const int LIMITE_MINIMO = 1;
+            const int LIMITE_MASSIMO = 3999;
+
+            do
+            {
+                Console.ResetColor();
+                Console.WriteLine("Inserire un numero intero, positivo e compreso tra 1 a 3999");
+                strN = Console.ReadLine();
+
+                bool andatabene = Int32.TryParse(strN, out N);
+                if (andatabene)
+                {
+                    Console.ForegroundColor =ConsoleColor.Green;
+                    Console.WriteLine("ok è numero ");
+                    if (N >= 1 && N <= 3999)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine("ed è compreso");
+                        break;
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("ma non compreso"); }
+                }
+                else {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Non è un numero");
+                }
+            
+            
+            }
+            while (N<LIMITE_MINIMO || N>LIMITE_MASSIMO);
+            Console.ResetColor();
+
+
+            if (N > 1000)
+            {
+                migliaia = N / 1000;
+                N = N - (1000 * migliaia);
+
+                centinaia = N / 100;
+                N = N - (100 * centinaia);
+
+                decine = N / 10;
+                N = N - (10 * decine);
+                unità = N;
+
+            }
+
+            if (N > 100)
+            {
+                centinaia = N / 100;
+                N = N - (100 * centinaia);
+
+                decine = N / 10;
+                N = N - (10 * decine);
+                unità = N;
+
+            }
+            else
+            { 
+            if (N>10)
+            {
+                decine = N / 10;
+                N = N - (10 * decine);
+                    unità = N;
+                }
+            }
+            unità = N;
+
+            Console.WriteLine("In numeri romani:");
+
+            switch (migliaia)
+            {
+                case 1:
+                    Console.Write("M");
+                    break;
+                case 2:
+                    Console.Write("M");
+                    Console.Write("M");
+                    break;
+                case 3:
+                    Console.Write("M");
+                    Console.Write("M");
+                    Console.Write("M");
+                    break;
+                
+
+            }
+
+            switch (centinaia)
+            {
+                case 1:
+                    Console.Write("C");
+                    break;
+                case 2:
+                    Console.Write("C");
+                    Console.Write("C");
+                    break;
+                case 3:
+                    Console.Write("C");
+                    Console.Write("C");
+                    Console.Write("C");
+                    break;
+                case 4:
+                    Console.Write("C");
+                    Console.Write("D");
+                    break;
+                case 5:
+                    Console.Write("D");
+                    break;
+                case 6:
+                    Console.Write("D");
+                    Console.Write("C");
+                    break;
+                case 7:
+                    Console.Write("D");
+                    Console.Write("C");
+                    Console.Write("C");
+                    break;
+                case 8:
+                    Console.Write("D");
+                    Console.Write("C");
+                    Console.Write("C");
+                    Console.Write("C");
+                    break;
+                case 9:
+                    Console.Write("C");
+                    Console.Write("M");
+                    break;
+                case 10:
+                    Console.Write("M");
+                    break;
+            }
+
+            switch (decine)
+            {
+                case 1:
+                    Console.Write("X");
+                    break;
+                case 2:
+                    Console.Write("X");
+                    Console.Write("X");
+                    break;
+                case 3:
+                    Console.Write("X");
+                    Console.Write("X");
+                    Console.Write("X");
+                    break;
+                case 4:
+                    Console.Write("X");
+                    Console.Write("L");
+                    break;
+                case 5:
+                    Console.Write("L");
+                    break;
+                case 6:
+                    Console.Write("L");
+                    Console.Write("X");
+                    break;
+                case 7:
+                    Console.Write("L");
+                    Console.Write("X");
+                    Console.Write("X");
+                    break;
+                case 8:
+                    Console.Write("L");
+                    Console.Write("X");
+                    Console.Write("X");
+                    Console.Write("X");
+                    break;
+                case 9:
+                    Console.Write("X");
+                    Console.Write("C");
+                    break;
+                case 10:
+                    Console.Write("C");
+                    break;
+            }
+
+            switch (unità)
+            {
+                case 1:
+                    Console.Write("I");
+                    break;
+                case 2:
+                    Console.Write("I");
+                    Console.Write("I");
+                    break;
+                case 3:
+                    Console.Write("I");
+                    Console.Write("I");
+                    Console.Write("I");
+                    break;
+                case 4:
+                    Console.Write("I");
+                    Console.Write("V");
+                    break;
+                case 5:
+                    Console.Write("V");
+                    break;
+                case 6:
+                    Console.Write("V");
+                    Console.Write("I");
+                    break;
+                case 7:
+                    Console.Write("V");
+                    Console.Write("I");
+                    Console.Write("I");
+                    break;
+                case 8:
+                    Console.Write("V");
+                    Console.Write("I");
+                    Console.Write("I");
+                    Console.Write("I");
+                    break;
+                case 9:
+                    Console.Write("I");
+                    Console.Write("X");
+                    break;
+              
+            }
+
+           
+
+
+
+
+
+
+
+
+
+        }
+    }
+}
